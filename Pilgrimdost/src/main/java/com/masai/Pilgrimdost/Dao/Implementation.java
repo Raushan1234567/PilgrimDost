@@ -1,11 +1,8 @@
 package com.masai.Pilgrimdost.Dao;
 
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Scanner;
 
-import com.masai.Pilgrimdost.App;
 import com.masai.Pilgrimdost.Dto.Admin;
+import com.masai.Pilgrimdost.Dto.Flight;
 import com.masai.Pilgrimdost.Dto.User;
 import com.masai.Pilgrimdost.exception.SomeThingWentWrong;
 
@@ -55,6 +52,9 @@ et.commit();
 	Admin result=(Admin) query.getSingleResult();
 	if(result==null) {
 		throw new SomeThingWentWrong("Id not found");
+	}else {
+		
+		System.out.println("Welcome "+  result.getName()+" in "+ "PilgrimDost");
 	}
 			
 		}catch( NoResultException e) {
@@ -69,7 +69,7 @@ et.commit();
 	}
 
 	@Override
-	public void userregister(User obj) throws SomeThingWentWrong {
+	public void userregister(User obj5) throws SomeThingWentWrong {
 		EntityManager em=null;
 		try {
 			
@@ -78,7 +78,7 @@ et.commit();
 EntityTransaction et=em.getTransaction();
 
 et.begin();
-em.persist(obj);
+em.persist(obj5);
 et.commit();	
 		}catch(Exception e) {
 			
@@ -112,6 +112,121 @@ et.commit();
 			
 		}catch( NoResultException e) {
 			System.out.println(e);
+		}
+		
+	finally {
+	em.close();
+	}
+		
+	}
+
+	@Override
+	public void addflight(Flight flightobject) throws SomeThingWentWrong {
+		EntityManager em=null;
+		try {
+			
+		em=Connect.getconnection();
+	
+EntityTransaction et=em.getTransaction();
+
+et.begin();
+em.persist(flightobject);
+et.commit();	
+		}catch(Exception e) {
+			
+		   throw new SomeThingWentWrong("Some thing went wrong");
+		}
+		
+	finally {
+	em.close();
+	}
+		
+	}
+
+	@Override
+	public void report(String flightid) throws SomeThingWentWrong {
+		EntityManager em=null;
+		try {
+			
+		em=Connect.getconnection();
+	
+
+String Q="select e from Flight e where flightid=:a";
+
+Query qu=em.createQuery(Q);
+qu.setParameter("a", flightid);
+Flight var=(Flight) qu.getSingleResult();
+int var1=var.getTotalseat() - var.getAvailableseat();
+double totalrevenue=var1*var.getPrice();
+
+double percentageofused =(var1*100)/var.getTotalseat();
+System.out.println("report of flight "+flightid);
+System.out.println();
+System.out.println("Total revenue is "+totalrevenue);
+System.out.println("Seat has Booked "+percentageofused+"%");
+	
+		}catch(Exception e) {
+			
+		   throw new SomeThingWentWrong("Some thing went wrong");
+		}
+		
+	finally {
+	em.close();
+	}
+		
+	}
+
+	@Override
+	public void DelteFlight(String flightid) throws SomeThingWentWrong {
+		
+		EntityManager em=null;
+		try {
+			
+		em=Connect.getconnection();
+		
+		Flight t=em.find(Flight.class, flightid);
+	if(t==null) {
+		
+		
+	}
+	else {
+EntityTransaction et=em.getTransaction();
+
+et.begin();
+em.remove(t);
+et.commit();	}
+		}catch(Exception e) {
+			
+		   throw new SomeThingWentWrong("No record found");
+		}
+		
+	finally {
+	em.close();
+	}
+		
+	}
+
+	@Override
+	public void Updateflight(Flight flightobject) throws SomeThingWentWrong {
+		EntityManager em=null;
+		try {
+			
+		em=Connect.getconnection();
+		
+		Flight t=em.find(Flight.class,flightobject.getFlightid());
+	if(t==null) {
+		
+		
+	}
+	else {
+EntityTransaction et=em.getTransaction();
+
+et.begin();
+em.merge(flightobject);
+et.commit();	}
+		}catch(Exception e) {
+			
+		   throw new SomeThingWentWrong("No record found");
 		}
 		
 	finally {
