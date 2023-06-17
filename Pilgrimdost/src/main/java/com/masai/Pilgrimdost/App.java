@@ -2,6 +2,7 @@ package com.masai.Pilgrimdost;
 
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import com.masai.Pilgrimdost.Dao.Implementation;
@@ -80,7 +81,14 @@ public class App
 		String pass=sc.next();
 		
 		Interface obj3=new Implementation();
-		obj3.userlogin1(email,pass);
+		try {
+			int uId=obj3.userlogin1(email,pass);
+			User(uId);
+			
+		} catch (SomeThingWentWrong e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
 	
 }
 
@@ -298,20 +306,20 @@ public class App
 			e.printStackTrace();
 		}
 	}
-	static void User(){
+	static void User(int uId){
 		Scanner sc=new Scanner(System.in);
 		int c=0;
 		do {
 			
-			System.out.println("1. Add Flight Details");
-			System.out.println("2. Update Flight Details");
-			System.out.println("3. Delete Flight Details");
-			System.out.println("4. Find report");
-			System.out.println("0. Exit");
+			System.out.println("1. View Flight Details");
+			System.out.println("2. Search Flight Details");
+			System.out.println("3. Filter by price");
+			System.out.println("4. Select desire flight");
+			System.out.println("0. Logout");
 			c=sc.nextInt();
 			switch(c) {
 			case 1:
-				viewflight(sc);
+				viewflight();
 				break;
 			case 2:
 				SearchFlight(sc);
@@ -320,7 +328,7 @@ public class App
 			   filter_by_price_rangeanddeparturetime(sc);
 				break;
 			case 4:
-				selectdesireflight(sc);
+				selectdesireflight(sc,uId);
 				break;
 				
 			case 0:
@@ -335,4 +343,140 @@ public class App
 			
 		}while(c!=0);
 	}
+
+	private static void viewflight() {
+		
+		Interface view_variable=new Implementation();
+		List<Flight> flight_varable_list;
+		try {
+			flight_varable_list = view_variable.view_flight();
+			System.out.println();
+			flight_varable_list.forEach(a -> System.out.println(a));
+			System.out.println();
+		} catch (SomeThingWentWrong e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+
+	private static void SearchFlight(Scanner sc) {
+		
+		System.out.println("Enter Departure city name");
+		String departure_city_name=sc.next();
+		System.out.println("Enter Destination city");
+		String destination=sc.next();
+		System.out.println("Enter no of seat reqired");
+		int passenger_count=sc.nextInt();
+		System.out.println("Enter date");
+		LocalDate d=LocalDate.parse(sc.next());
+		
+		Interface serch_variable=new Implementation();
+		
+		List<Flight> list;
+		try {
+			list = serch_variable.serch(departure_city_name,destination,passenger_count,d);
+			if(list!=null) {
+				list.forEach(a-> System.out.println(a));
+			}else {
+				System.out.println("Flight not available");
+			}
+			
+		} catch (SomeThingWentWrong e) {
+			// TODO Auto-generated catch block
+		  System.out.println(e);
+		}
+	
+	}
+
+	private static void filter_by_price_rangeanddeparturetime(Scanner sc) {
+	
+		
+		
+	}
+
+	private static void selectdesireflight(Scanner sc, int uId) {
+		
+		viewflight(); 
+		System.out.println("Enter flight id");
+		String fligth_id=sc.next();
+		
+		Interface a=new Implementation();
+		
+		Flight flight;
+		try {
+			flight = a.Select(fligth_id);
+			System.out.println();
+			System.out.println(flight);
+			System.out.println();
+			Booking(sc,fligth_id,uId);
+			
+			
+		} catch (SomeThingWentWrong e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		
+
+		
+	}
+
+
+
+	private static void Booking(Scanner sc,String fligth_id, int uId) {
+		// TODO Auto-generated method stub
+			
+System.out.println("Enter name");
+String name=sc.next();
+System.out.println("Enter adhar number");
+String adharno=sc.next();
+System.out.println("Enter desire no of seat");
+int noofseat=sc.nextInt();
+if(noofseat<=10) {
+	
+}else {
+	System.out.println("Enter desire no of seat ");
+	 noofseat=sc.nextInt();
+}
+System.out.println("Enter Mobile number");
+String mobileno=sc.next();
+
+Interface a=new Implementation();
+try {
+	double p=a.book1(fligth_id,name,adharno,noofseat,mobileno,uId);
+	System.out.println("");
+	System.out.println("Your total ticket price is: "+ (noofseat*p));
+	System.out.println("1. For procced to payment press 1");
+	Payment(sc,noofseat*p,name );
+} catch (SomeThingWentWrong e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+
+	}
+
+private static void Payment(Scanner sc, double d, String name) {
+	double amount=0;
+	do {
+		System.out.println("Enter amount");
+	 amount=sc.nextDouble();
+	}while(amount!=d);
+	
+	System.out.println("Enter upi no.");
+	String upino=sc.next();
+	System.out.println("procced");
+	System.out.println();
+	System.out.println("For confirmation of payment ");
+	
+	Call(name);
+	
+}
+
+private static void Call(String name) {
+	
+	System.out.println("Your payment is successful,Happy journey "+name);
+	
+}
 }
