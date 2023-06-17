@@ -2,6 +2,9 @@ package com.masai.Pilgrimdost.Dao;
 
 
 
+import java.time.LocalDate;
+import java.util.List;
+
 import com.masai.Pilgrimdost.Dto.Admin;
 import com.masai.Pilgrimdost.Dto.Flight;
 import com.masai.Pilgrimdost.Dto.User;
@@ -21,7 +24,7 @@ public interface Interface {
 
 
 
-	void userlogin1(String email, String pass);
+	int userlogin1(String email, String pass) throws SomeThingWentWrong;
 
 
 
@@ -38,6 +41,22 @@ public interface Interface {
 
 
 	void Updateflight(Flight flightobject) throws SomeThingWentWrong;
+
+
+
+	List<Flight> view_flight() throws SomeThingWentWrong;
+
+
+
+	List<Flight> serch(String departure_city_name, String destination, int passenger_count, LocalDate d) throws SomeThingWentWrong;
+
+
+
+	Flight Select(String fligth_id) throws SomeThingWentWrong;
+
+
+
+	double book1( String flightid,String name, String adharno, int noofseat, String mobileno, int uId ) throws SomeThingWentWrong;
 
 	
 	
