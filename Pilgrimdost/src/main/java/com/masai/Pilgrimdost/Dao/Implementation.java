@@ -301,7 +301,7 @@ et.commit();	}
 		
 		}catch(Exception e) {
 			
-		   throw new SomeThingWentWrong("Some thing went wrong");
+		   System.out.println(e);
 		}
 		
 	finally {
@@ -348,6 +348,7 @@ et.commit();	}
 	public double book1(String flightid,String name, String adharno, int noofseat, String mobileno,int uId) throws SomeThingWentWrong {
 		
 		EntityManager em=null;
+		List <Number> i=null;
 	double p=0;
 		try {
 			
@@ -365,7 +366,7 @@ et.commit();	}
 		et.commit();
 	p=t.getPrice();
 		
-	
+	Booking b=em.find(Booking.class, adharno);
 		
 		}catch(Exception e) {
 			
@@ -376,6 +377,41 @@ et.commit();	}
 	em.close();
 	}
 	return p;	
+		
+	}
+
+	@Override
+	public void see_booking_details(int uId) throws SomeThingWentWrong {
+	
+		
+		EntityManager em=null;
+
+		try {
+			
+		em=Connect.getconnection();
+		User ui=em.find(User.class, uId);
+		String q="select e from Booking e where users=:s";
+		Query query=em.createQuery(q);
+		query.setParameter("s", ui);
+
+		List<Booking> list=query.getResultList();
+		
+		System.out.println("*****************Welcome in Pilgrimdost*****************");
+		
+		list.forEach(a -> System.out.println("name:   "+a.getTraveller_name() +"\n"+"Adhar number:  "+a.getAdharno()+"\n"+"Mobile No:  "+a.getMobileno()+"\n"+"Seat: "+a.getDesireno_of_seat()));
+		
+		System.out.println();
+		System.out.println("*****************happy and safe journey*****************");
+		
+		}catch(Exception e) {
+			System.out.println(e);
+//		   throw new SomeThingWentWrong("Flight not available");
+		}
+		
+	finally {
+	em.close();
+	}
+	
 		
 	}
 

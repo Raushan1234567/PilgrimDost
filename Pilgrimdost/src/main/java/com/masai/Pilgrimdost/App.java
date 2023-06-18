@@ -315,6 +315,7 @@ public class App
 			System.out.println("2. Search Flight Details");
 			System.out.println("3. Filter by price");
 			System.out.println("4. Select desire flight");
+			System.out.println("5. See Booked tickets");
 			System.out.println("0. Logout");
 			c=sc.nextInt();
 			switch(c) {
@@ -330,6 +331,9 @@ public class App
 			case 4:
 				selectdesireflight(sc,uId);
 				break;
+			case 5:
+				BookingDetails(sc,uId);
+				break;
 				
 			case 0:
 				System.out.println("Log out successful, Thanks to Visit");
@@ -344,6 +348,21 @@ public class App
 		}while(c!=0);
 	}
 
+	private static void BookingDetails(Scanner sc, int uId) {
+	
+		
+		
+		Interface a=new Implementation();
+		
+		try {
+			a.see_booking_details(uId);
+		} catch (SomeThingWentWrong e) {
+			// TODO Auto-generated catch block
+		System.out.println(e);
+		}
+		
+	}
+
 	private static void viewflight() {
 		
 		Interface view_variable=new Implementation();
@@ -355,7 +374,7 @@ public class App
 			System.out.println();
 		} catch (SomeThingWentWrong e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		
 		
@@ -419,8 +438,6 @@ public class App
 			System.out.println(e);
 		}
 		
-
-		
 	}
 
 
@@ -434,7 +451,7 @@ System.out.println("Enter adhar number");
 String adharno=sc.next();
 System.out.println("Enter desire no of seat");
 int noofseat=sc.nextInt();
-if(noofseat<=10) {
+if(noofseat <=12) {
 	
 }else {
 	System.out.println("Enter desire no of seat ");
@@ -448,7 +465,7 @@ try {
 	double p=a.book1(fligth_id,name,adharno,noofseat,mobileno,uId);
 	System.out.println("");
 	System.out.println("Your total ticket price is: "+ (noofseat*p));
-	System.out.println("1. For procced to payment press 1");
+	
 	Payment(sc,noofseat*p,name );
 } catch (SomeThingWentWrong e) {
 	// TODO Auto-generated catch block
@@ -460,17 +477,31 @@ try {
 private static void Payment(Scanner sc, double d, String name) {
 	double amount=0;
 	do {
-		System.out.println("Enter amount");
+		
+	System.out.println("Enter amount");
 	 amount=sc.nextDouble();
 	}while(amount!=d);
-	
 	System.out.println("Enter upi no.");
 	String upino=sc.next();
 	System.out.println("procced");
 	System.out.println();
-	System.out.println("For confirmation of payment ");
+	int c;
+	do {
+		System.out.println("For confirmation of payment press 1");
+		
+		c=sc.nextInt();
+		
+		switch(c) {
+		case 1:
+			Call(name);
+			break;
+		default :
+			System.out.println("Invalid selection");
+			
+		}
 	
-	Call(name);
+
+	}while(c!=1);
 	
 }
 

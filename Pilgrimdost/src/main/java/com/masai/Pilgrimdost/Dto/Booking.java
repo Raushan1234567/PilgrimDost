@@ -10,6 +10,7 @@ private int booking_id;
 private String traveller_name;
 private int desireno_of_seat;
 private String mobileno;
+
 private String Adharno;
 @ManyToOne
 private Flight flight;

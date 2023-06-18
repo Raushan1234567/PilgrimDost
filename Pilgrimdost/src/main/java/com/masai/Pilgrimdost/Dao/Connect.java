@@ -13,7 +13,7 @@ public class Connect {
 	}
 	
 	 static EntityManager getconnection() {
-		 System.out.println("oine");
+		 
 		return emf.createEntityManager();
 	}
 	

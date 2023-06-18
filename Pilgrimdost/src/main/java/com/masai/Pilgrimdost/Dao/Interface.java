@@ -58,6 +58,10 @@ public interface Interface {
 
 	double book1( String flightid,String name, String adharno, int noofseat, String mobileno, int uId ) throws SomeThingWentWrong;
 
+
+
+	void see_booking_details(int uId) throws SomeThingWentWrong;
+
 	
 	
 }
