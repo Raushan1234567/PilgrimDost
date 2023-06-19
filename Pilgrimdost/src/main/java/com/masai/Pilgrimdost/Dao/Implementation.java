@@ -20,18 +20,24 @@ import jakarta.persistence.Query;
 public class Implementation implements Interface{
 
 	@Override
-	public void adminregister(Admin obj) {
+	public void adminregister(Admin obj,String name) {
 		
 		EntityManager em=null;
 		try {
 			
-		em=Connect.getconnection();
-		System.out.println("wone");
+		em=Connect.getconnection(); 
+		
 EntityTransaction et=em.getTransaction();
 
 et.begin();
 em.persist(obj);
+
 et.commit();	
+System.out.println();
+System.out.println("***************************************************");
+System.out.println("Welcome "+name);
+System.out.println("***************************************************");
+System.out.println();
 		}catch(PersistenceException | IllegalStateException | IllegalArgumentException e) {
 			System.out.println(e);
 		}
@@ -40,7 +46,6 @@ et.commit();
 	em.close();
 	}
 	
-		
 	}
 
 	@Override
@@ -165,8 +170,11 @@ String Q="select e from Flight e where flightid=:a";
 
 Query qu=em.createQuery(Q);
 qu.setParameter("a", flightid);
+
 Flight var=(Flight) qu.getSingleResult();
+
 int var1=var.getTotalseat() - var.getAvailableseat();
+
 double totalrevenue=var1*var.getPrice();
 
 double percentageofused =(var1*100)/var.getTotalseat();
@@ -369,7 +377,7 @@ et.commit();	}
 	Booking b=em.find(Booking.class, adharno);
 		
 		}catch(Exception e) {
-			
+			System.out.println(e);
 		   throw new SomeThingWentWrong("Flight not available");
 		}
 		
@@ -398,7 +406,7 @@ et.commit();	}
 		
 		System.out.println("*****************Welcome in Pilgrimdost*****************");
 		
-		list.forEach(a -> System.out.println("name:   "+a.getTraveller_name() +"\n"+"Adhar number:  "+a.getAdharno()+"\n"+"Mobile No:  "+a.getMobileno()+"\n"+"Seat: "+a.getDesireno_of_seat()));
+		list.forEach(a -> System.out.println("Booking Id:"+a.getBooking_id()+"\n"+"Flight Id: "+a.getFlight().getFlightid()+"\n"+"name:   "+a.getTraveller_name() +"\n"+"Adhar number:  "+a.getAdharno()+"\n"+"Mobile No:  "+a.getMobileno()+"\n"+"Seat: "+a.getDesireno_of_seat()));
 		
 		System.out.println();
 		System.out.println("*****************happy and safe journey*****************");
@@ -415,4 +423,73 @@ et.commit();	}
 		
 	}
 
+	@Override
+	public List<Flight> Filter_by_price(double min_price, double max_price) throws SomeThingWentWrong {
+		EntityManager em=null;
+		List <Flight> list=null;
+	
+		try {
+			
+		em=Connect.getconnection();
+		String q="select e from Flight e where price >= :min_price and price <= :max_price";
+		
+		
+		Query query=em.createQuery(q);
+		query.setParameter("min_price",min_price );
+		query.setParameter("max_price",max_price );
+		
+		list=query.getResultList();
+	
+		
+		}catch(Exception e) {
+			System.out.println(e);
+		   throw new SomeThingWentWrong("Flight not available");
+		}
+		
+	finally {
+	em.close();
+	}
+	return list;	
+	}
+
+	@Override
+	public void Cancel_Ticket(int booking_id) throws SomeThingWentWrong {
+		EntityManager em=null;
+		
+		try {
+			
+		em=Connect.getconnection();
+		
+	Booking t=em.find(Booking.class, booking_id);
+
+
+
+	if(t==null) {
+		
+		System.out.println("You have not booked any ticket till now");
+	
+	}
+	else {
+		EntityTransaction et=em.getTransaction();
+		
+		et.begin();
+		em.remove(t);
+		
+		et.commit();
+	}
+		}catch(Exception e) {
+			System.out.println(e);
+		   throw new SomeThingWentWrong("Flight not available");
+		}
+		
+	finally {
+	em.close();
+	}
+		
+		
+
+		
+	}
+
+	
 }
