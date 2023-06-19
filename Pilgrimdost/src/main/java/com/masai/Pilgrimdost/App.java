@@ -20,10 +20,10 @@ public class App
       
       int c;
       do {
-    	  System.out.println("1. For admin resgistration press-1");
-    	  System.out.println("2. For  user Signup press-2");
-    	  System.out.println("3. For admin login press-3");
-    	  System.out.println("4. For  user login press-4");
+    	  System.out.println("1. For admin registration, press 1.");
+    	  System.out.println("2. For user signup, press 2.");
+    	  System.out.println("3. For admin login, press 3");
+    	  System.out.println("4. For user login, press 4");
     	  System.out.println("0. Exit");
     	  
     	  c=sc.nextInt();
@@ -53,6 +53,8 @@ public class App
       sc.close();
     }
 
+ //Admin Logion******************************************************************
+   
 	private static void adminlogin(Scanner sc) {
 	
 		
@@ -74,6 +76,8 @@ public class App
 	
 }
 
+	//User Logion******************************************************************
+	
 	private static void userlogin(Scanner sc) {
 		System.out.println("Eneter email");
 		String email=sc.next();
@@ -85,6 +89,7 @@ public class App
 			int uId=obj3.userlogin1(email,pass);
 			User(uId);
 			
+			
 		} catch (SomeThingWentWrong e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
@@ -92,58 +97,62 @@ public class App
 	
 }
 
+	//Admin Registration*****************************************************************
+	
 	private static void adminregister(Scanner sc) {
 	
-		System.out.println(" Enter name");
+		System.out.println("Enter name");
 		String name=sc.next();
-		System.out.println(" Enter email");
+		System.out.println("Enter email");
 		String email=sc.next();
-		System.out.println(" Enter Password");
+		System.out.println("Enter Password");
 		String password=sc.next();
-		System.out.println(" Enter Addrress");
+		System.out.println("Enter Address");
 		String address=sc.next();
-		System.out.println(" Enter pincode");
+		System.out.println("Enter pincode");
 		String pincode=sc.next();
-		System.out.println(" Enter role");
+		System.out.println("Enter role");
 		String role=sc.next();
 		
 	Admin obj=new Admin(name,role,email,password,address,pincode);
 		
 		Interface obj1=new Implementation();
 	
-		obj1.adminregister(obj);
+		obj1.adminregister(obj,name);
 	}
 
+	//User Registration**********************************************************
+	
 	private static void userregister(Scanner sc) {
 		
-		System.out.println(" Enter name");
+		System.out.println("Enter name");
 		String name=sc.next();
-		System.out.println(" Enter role");
+		System.out.println("Enter role");
 		
 		String role=sc.next();
-		System.out.println(" Enter email");
+		System.out.println("Enter email");
 		String email=sc.next();
-		System.out.println(" Enter Password");
+		System.out.println("Enter Password");
 		String password=sc.next();
-		System.out.println(" Enter Addrress");
+		System.out.println("Enter Addrress");
 		String address=sc.next();
 		
 		
 		
-		System.out.println(" Enter pincode");
+		System.out.println("Enter pincode");
 		String pincode=sc.next();
 		
 		
  User obj5=new User(name,role,email,password,address,pincode);
-		System.out.println("one");
+	
 		Interface obj1=new Implementation();
-		System.out.println("ne");
+		
 		try {
 			obj1.userregister(obj5);
 			System.out.println("Registration successful");
 		} catch (SomeThingWentWrong e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		
 		
@@ -188,7 +197,7 @@ public class App
 			
 		}while(c!=0);
 	}
-
+//Add flight detals by admin**********************************************************************
 	private static void AddFlight(Scanner sc) {
 		// TODO Auto-generated method stub
 		
@@ -196,15 +205,15 @@ public class App
 		String flightid=sc.next();
 		System.out.println("Enter Flight Name");
 		String flightname=sc.next();
-		System.out.println("Enter Flight starting point");
+		System.out.println("Enter Flight Departure City");
 		String flightstartingpoint=sc.next();
-		System.out.println("Enter Flight Ending point");
+		System.out.println("Enter Flight  Destination City");
 		String flightEndingpointpoint=sc.next();
 		System.out.println("Enter Flight Fare per seat");
 		double flightfare=sc.nextDouble();
-		System.out.println("Enter Flight start date");
+		System.out.println("Enter Flight departure  date");
 		LocalDate flightstartdate=LocalDate.parse(sc.next());
-		System.out.println("Enter End date");
+		System.out.println("Enter arrival date");
 		LocalDate flightenddate=LocalDate.parse(sc.next());
 		System.out.println("Enter Total seat in flight");
 		int totalseat=sc.nextInt();
@@ -233,6 +242,8 @@ public class App
 		
 	}
 
+	//Admin able to update flight**************************************************************** 
+	
 	private static void UpdateFlight(Scanner sc) {
 		
 		System.out.println("Enter Flight id");
@@ -275,6 +286,8 @@ public class App
 		
 	}
 
+	//Admin able to Delete flight*********************************************************
+	
 	private static void DeleteFlight(Scanner sc) {
 		
 		System.out.println("Enetr Flight id");
@@ -291,7 +304,7 @@ public class App
 		}
 		
 	}
-
+	//Admin able to See the flight report (revenue,seat booked percentage) ************************************ 
 	private static void flightreport(Scanner sc) {
 		
 		System.out.println("Enter flight id");
@@ -306,6 +319,10 @@ public class App
 			e.printStackTrace();
 		}
 	}
+	
+	
+	//After login user call this method and choose their required service
+	
 	static void User(int uId){
 		Scanner sc=new Scanner(System.in);
 		int c=0;
@@ -316,6 +333,7 @@ public class App
 			System.out.println("3. Filter by price");
 			System.out.println("4. Select desire flight");
 			System.out.println("5. See Booked tickets");
+			System.out.println("6. Cancel tickets");
 			System.out.println("0. Logout");
 			c=sc.nextInt();
 			switch(c) {
@@ -334,6 +352,9 @@ public class App
 			case 5:
 				BookingDetails(sc,uId);
 				break;
+			case 6:
+				Cancel(sc);
+				break;
 				
 			case 0:
 				System.out.println("Log out successful, Thanks to Visit");
@@ -348,6 +369,23 @@ public class App
 		}while(c!=0);
 	}
 
+	private static void Cancel(Scanner sc) {
+		
+		System.out.println("Enter Booking id for cancel the ticket");
+		int booking_id=sc.nextInt();
+		
+		Interface a=new Implementation();
+		try {
+			a.Cancel_Ticket(booking_id);
+		} catch (SomeThingWentWrong e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	//User able to see the booking detals
+	
 	private static void BookingDetails(Scanner sc, int uId) {
 	
 		
@@ -381,6 +419,7 @@ public class App
 		
 	}
 
+	//Serch functionallity*************************************
 	private static void SearchFlight(Scanner sc) {
 		
 		System.out.println("Enter Departure city name");
@@ -412,10 +451,27 @@ public class App
 
 	private static void filter_by_price_rangeanddeparturetime(Scanner sc) {
 	
+		System.out.println("Enter minimum price");
+		double min_price=sc.nextDouble();
+
+		System.out.println("Enter maximum price");
+		double max_price=sc.nextDouble();
+		
+		Interface a=new Implementation();
+		List<Flight> list;
+		try {
+			list = a.Filter_by_price(min_price,max_price);
+			System.out.println("Following Flight Available");
+			list.forEach(System.out::println);
+		} catch (SomeThingWentWrong e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
 
+	// select desire flight
 	private static void selectdesireflight(Scanner sc, int uId) {
 		
 		viewflight(); 
@@ -451,7 +507,7 @@ System.out.println("Enter adhar number");
 String adharno=sc.next();
 System.out.println("Enter desire no of seat");
 int noofseat=sc.nextInt();
-if(noofseat <=12) {
+if(noofseat <=10 && noofseat>=1 ) {
 	
 }else {
 	System.out.println("Enter desire no of seat ");
@@ -473,7 +529,7 @@ try {
 }
 
 	}
-
+//payment method*******************************************************************
 private static void Payment(Scanner sc, double d, String name) {
 	double amount=0;
 	do {

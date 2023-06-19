@@ -12,7 +12,7 @@ import com.masai.Pilgrimdost.exception.SomeThingWentWrong;
 
 public interface Interface {
 
-	void adminregister(Admin obj);
+	void adminregister(Admin obj, String name);
 
 	
 
@@ -61,6 +61,22 @@ public interface Interface {
 
 
 	void see_booking_details(int uId) throws SomeThingWentWrong;
+
+
+
+	List<Flight> Filter_by_price(double min_price, double max_price) throws SomeThingWentWrong;
+
+
+
+	void Cancel_Ticket(int booking_id) throws SomeThingWentWrong;
+
+
+
+	
+
+
+
+	
 
 	
 	
