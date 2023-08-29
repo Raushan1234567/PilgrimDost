@@ -365,14 +365,16 @@ et.commit();	}
 		
 		Flight t=em.find(Flight.class, flightid);
 		User u=em.find(User.class, uId);
-		
+	
 		Booking obj=new Booking(name,noofseat,mobileno,adharno,t,u);
 		EntityTransaction et=em.getTransaction();
 		
 		et.begin();
+		
 		em.persist(obj);
 		t.setAvailableseat(t.getAvailableseat()-noofseat);
 		et.commit();
+	
 	p=t.getPrice();
 		
 	Booking b=em.find(Booking.class, adharno);
