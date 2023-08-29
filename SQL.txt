@@ -1,0 +1,23 @@
+	// These are jpql used in this project.
+
+//query to select flight which have flightid=?>>>>>>>>>>>>>>>>>>
+
+String query="select e from Flight e where flightid =:a";
+
+//query to select flight by departure and starting point>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+String query="select e from Flight e where StartingPoint =:a and EndingPoint =:b and availableseat >= :c and Startdate >=:d";
+
+
+//query to select flight from flight table>>>>>>>>>>>>>>.
+
+String query="select e from Flight e ";
+
+//select user from User table who have email=b>>>>>>>.
+String q="select e from User e where email =:b";
+
+//select admin from Admin table who have email=b>>>>>>>.
+String q="select e from Admin e where password =:a and email =:b";
+
+String q="select e from Flight e where price >= :min_price and price <= :max_price";
+
+String q="select e from Booking e where users=:s";
