@@ -1,10 +1,9 @@
 package com.masai.Pilgrimdost.Dao;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.mindrot.jbcrypt.BCrypt;
 import com.masai.Pilgrimdost.Dto.Admin;
 import com.masai.Pilgrimdost.Dto.Booking;
 import com.masai.Pilgrimdost.Dto.Flight;
@@ -89,7 +88,8 @@ System.out.println();
 		em=Connect.getconnection();
 	
 EntityTransaction et=em.getTransaction();
-
+String hashedPassword = BCrypt.hashpw(obj5.getPassword(), BCrypt.gensalt());
+obj5.setPassword(hashedPassword);
 et.begin();
 em.persist(obj5);
 et.commit();	
@@ -112,15 +112,16 @@ et.commit();
 			
 		em=Connect.getconnection();
 		
-		String q="select e from User e where password =:a and email =:b";
+		String q="select e from User e where email =:b";
 		
 	Query query=em.createQuery(q);
-	query.setParameter("a", pass);
+	
 	query.setParameter("b", email);
 	
 	User result= (User) query.getSingleResult();
+	boolean isPasswordCorrect = BCrypt.checkpw(pass, result.getPassword());
 	Uid=result.getUserid();
-	if(result!=null) {
+	if(isPasswordCorrect) {
 		System.out.println("Welcome"+"  "+ result.getName() +" "+"in"+" "+ "PilgrimDost");
 
 	}
