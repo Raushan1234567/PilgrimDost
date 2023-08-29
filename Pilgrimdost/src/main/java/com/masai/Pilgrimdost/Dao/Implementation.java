@@ -18,6 +18,8 @@ import jakarta.persistence.Query;
 
 public class Implementation implements Interface{
 
+	// Admin registration start from here....................
+	
 	@Override
 	public void adminregister(Admin obj,String name) {
 		
@@ -47,6 +49,10 @@ System.out.println();
 	
 	}
 
+	// Admin registration end from here....................
+	
+	
+	// Admin login start from here....................
 	@Override
 	public void adminlogin1(String email, String pass) throws SomeThingWentWrong {
 		// TODO Auto-generated method stub
@@ -80,6 +86,10 @@ System.out.println();
 		
 	}
 
+	// Admin login end from here....................
+	
+	
+	// User register start from here....................
 	@Override
 	public void userregister(User obj5) throws SomeThingWentWrong {
 		EntityManager em=null;
@@ -104,6 +114,10 @@ et.commit();
 		
 	}
 
+	// User register end here....................
+	
+	
+	// User login start from here....................
 	@Override
 	public int userlogin1(String email, String pass) throws SomeThingWentWrong {
 		EntityManager em=null;
@@ -136,6 +150,10 @@ et.commit();
 	return Uid;	
 	}
 
+	// User login end here....................
+	
+	
+	//flight adding code start from here.......................
 	@Override
 	public void addflight(Flight flightobject) throws SomeThingWentWrong {
 		EntityManager em=null;
@@ -158,7 +176,10 @@ et.commit();
 	}
 		
 	}
-
+	//Flight adding end here.......................
+	
+	
+	//Report of revenue code start from here.......................
 	@Override
 	public void report(String flightid) throws SomeThingWentWrong {
 		EntityManager em=null;
@@ -194,7 +215,10 @@ System.out.println("Seat has Booked "+percentageofused+"%");
 	}
 		
 	}
-
+	//Report of revenue code end  here.......................
+	
+	
+	//delete flight start from here................................
 	@Override
 	public void DelteFlight(String flightid) throws SomeThingWentWrong {
 		
@@ -224,7 +248,10 @@ et.commit();	}
 	}
 		
 	}
-
+	//delete flight end here................................
+	
+	
+	//Update flight start from here............................
 	@Override
 	public void Updateflight(Flight flightobject) throws SomeThingWentWrong {
 		EntityManager em=null;
@@ -253,7 +280,10 @@ et.commit();	}
 	}
 		
 	}
-
+	//Update flight end here............................
+	
+	
+	//View flight start from  here............................
 	@Override
 	public List<Flight> view_flight() throws SomeThingWentWrong {
 		
@@ -282,7 +312,9 @@ et.commit();	}
 		
 		return list;
 	}
-
+	//View flight code end  here............................
+	
+	
 	@Override
 	public List<Flight> serch(String departure_city_name, String destination, int passenger_count, LocalDate d1) throws SomeThingWentWrong {
 		EntityManager em=null;
@@ -336,9 +368,6 @@ et.commit();	}
 		
 		
 		d=(Flight) executequery.getSingleResult();
-		
-		
-	
 		
 		}catch(Exception e) {
 			
