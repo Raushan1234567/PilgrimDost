@@ -11,7 +11,7 @@
 
 
 ![Blue 123](https://github.com/Raushan1234567/debonair-surprise-3863/assets/115460955/e1509842-9326-48a4-ba6b-044f4fdf6004)
-<h1> Project Description </h1></h1>-The Console-based Flight Booking System is a software solution designed to simplify the process of booking flights for travelers. The system aims to provide users with a command-line interface to search for available flights, compare prices, and make reservations. It allows customers to manage their own bookings, while the admin user has additional functionalities to manage flight information. The system will be developed using Java programming language, MySQL as the database management system, and Hibernate as the Object-Relational Mapping (ORM) framework.
+<h1> Project Description </h1></h1>The Console-based Flight Booking System is a software solution designed to simplify the process of booking flights for travelers. The system aims to provide users with a command-line interface to search for available flights, compare prices, and make reservations. It allows customers to manage their own bookings, while the admin user has additional functionalities to manage flight information. The system will be developed using Java programming language, MySQL as the database management system, and Hibernate as the Object-Relational Mapping (ORM) framework.
 
 <h1>Types of Users</h1>
 1. Admin  <br>
