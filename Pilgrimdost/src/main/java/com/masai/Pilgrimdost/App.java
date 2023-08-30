@@ -70,7 +70,7 @@ public class App
 			flight();
 			
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	
@@ -91,7 +91,7 @@ public class App
 			
 			
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 			System.out.println(e);
 		}
 	
@@ -197,7 +197,7 @@ public class App
 			
 		}while(c!=0);
 	}
-//Add flight detals by admin**********************************************************************
+//Add flight details by admin**********************************************************************
 	private static void AddFlight(Scanner sc) {
 		// TODO Auto-generated method stub
 		
@@ -280,7 +280,7 @@ public class App
 			referObj.Updateflight(flightobject);
 			System.out.println("Updated Successfully");
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 			System.out.println(e);
 		}
 		
@@ -315,7 +315,7 @@ public class App
 		try {
 			obj10.report(flightid);
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
@@ -378,7 +378,7 @@ public class App
 		try {
 			a.Cancel_Ticket(booking_id);
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -395,7 +395,7 @@ public class App
 		try {
 			a.see_booking_details(uId);
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 		System.out.println(e);
 		}
 		
@@ -411,7 +411,7 @@ public class App
 			flight_varable_list.forEach(a -> System.out.println(a));
 			System.out.println();
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 			System.out.println(e);
 		}
 		
@@ -443,12 +443,12 @@ public class App
 			}
 			
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 		  System.out.println(e);
 		}
 	
 	}
-
+//Able to filter by price range................................................
 	private static void filter_by_price_rangeanddeparturetime(Scanner sc) {
 	
 		System.out.println("Enter minimum price");
@@ -464,7 +464,7 @@ public class App
 			System.out.println("Following Flight Available");
 			list.forEach(System.out::println);
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -490,7 +490,7 @@ public class App
 			
 			
 		} catch (SomeThingWentWrong e) {
-			// TODO Auto-generated catch block
+			
 			System.out.println(e);
 		}
 		
@@ -499,7 +499,7 @@ public class App
 
 
 	private static void Booking(Scanner sc,String fligth_id, int uId) {
-		// TODO Auto-generated method stub
+		
 			
 System.out.println("Enter name");
 String name=sc.next();
@@ -524,7 +524,7 @@ try {
 	
 	Payment(sc,noofseat*p,name );
 } catch (SomeThingWentWrong e) {
-	// TODO Auto-generated catch block
+	
 	e.printStackTrace();
 }
 
